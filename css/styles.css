@@ -446,6 +446,11 @@ a {
   color: var(--gold);
   line-height: 1;
   margin-bottom: 0.5rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
 }
 
 .stat__number span {
@@ -541,7 +546,7 @@ a {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  counter-reset: steps;
+  align-items: stretch;
 }
 
 .how-step {
@@ -552,6 +557,7 @@ a {
   border: 1px solid var(--border);
   background-color: var(--surface-2);
   transition: border-color var(--transition);
+  height: 100%;
 }
 
 .how-step:hover {
