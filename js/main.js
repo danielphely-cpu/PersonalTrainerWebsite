@@ -19,6 +19,15 @@ const revealObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
+/* ---------- SCROLL TO TOP ON LOAD ---------- */
+window.addEventListener('beforeunload', () => {
+  window.scrollTo(0, 0);
+});
+
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+
 /* ---------- FOOTER YEAR ---------- */
 const yearEl = document.getElementById('footer-year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
