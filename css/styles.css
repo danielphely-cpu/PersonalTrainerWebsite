@@ -424,12 +424,16 @@ a {
 .stats__grid {
   display: grid;
   grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr;
-  align-items: center;
+  align-items: stretch;
 }
 
 .stat {
   text-align: center;
   padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .stat__divider {
@@ -441,20 +445,15 @@ a {
 
 .stat__number {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 600;
   color: var(--gold);
   line-height: 1;
   margin-bottom: 0.5rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.2rem;
 }
 
 .stat__number span {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   opacity: 0.8;
 }
 
@@ -546,7 +545,7 @@ a {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  align-items: stretch;
+  grid-auto-rows: 1fr;
 }
 
 .how-step {
@@ -557,7 +556,6 @@ a {
   border: 1px solid var(--border);
   background-color: var(--surface-2);
   transition: border-color var(--transition);
-  height: 100%;
 }
 
 .how-step:hover {
@@ -598,7 +596,7 @@ a {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  align-items: start;
+  grid-auto-rows: 1fr;
 }
 
 .service-card {
@@ -610,6 +608,7 @@ a {
   gap: 1.5rem;
   transition: border-color var(--transition), transform var(--transition);
   position: relative;
+  height: 100%;
 }
 
 .service-card:hover {
