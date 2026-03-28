@@ -116,8 +116,9 @@ a {
 /* ---------- ANIMATIONS ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.visible {
@@ -125,9 +126,10 @@ a {
   transform: translateY(0);
 }
 
-/* Stagger children inside a reveal parent */
-.reveal:nth-child(2) { transition-delay: 0.1s; }
-.reveal:nth-child(3) { transition-delay: 0.2s; }
+/* Stagger for grid children */
+.reveal.visible[data-delay="1"] { transition-delay: 0.1s; }
+.reveal.visible[data-delay="2"] { transition-delay: 0.2s; }
+.reveal.visible[data-delay="3"] { transition-delay: 0.3s; }
 
 /* Hero entrance */
 .animate-hero .hero__eyebrow,
