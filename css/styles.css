@@ -557,6 +557,32 @@ a {
 }
 
 /* ============================================
+   SECTION DIVIDER
+   ============================================ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 2rem;
+  color: var(--gold);
+  opacity: 0.4;
+}
+
+.section-divider span {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.section-divider span:last-child {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.section-divider svg {
+  flex-shrink: 0;
+}
+
+/* ============================================
    ABOUT
    ============================================ */
 .about__grid {
