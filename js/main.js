@@ -171,19 +171,57 @@ if (form) {
   statusMsg.setAttribute('role', 'alert');
   submitBtn.insertAdjacentElement('afterend', statusMsg);
 
+  function showFieldError(fieldEl, message) {
+    // Remove any existing error on this field's group
+    const group = fieldEl.closest('.form__group') || fieldEl.parentElement;
+    const existing = group.querySelector('.field-error');
+    if (existing) existing.remove();
+
+    const err = document.createElement('div');
+    err.className = 'field-error';
+    err.setAttribute('role', 'alert');
+    err.innerHTML = `
+      <div class="field-error__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" height="18" fill="none"><path fill="#fff" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg>
+      </div>
+      <div class="field-error__title">${message}</div>
+      <div class="field-error__close" aria-label="Dismiss">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 20 20" height="18"><path fill="#fff" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg>
+      </div>`;
+
+    err.querySelector('.field-error__close').addEventListener('click', () => err.remove());
+
+    // Auto-dismiss after 5s
+    setTimeout(() => { if (err.parentElement) err.remove(); }, 5000);
+
+    // Insert above the input (after the label)
+    const label = group.querySelector('label');
+    if (label) label.insertAdjacentElement('afterend', err);
+    else group.prepend(err);
+
+    // Also clear when user starts typing
+    fieldEl.addEventListener('input', () => err.remove(), { once: true });
+
+    fieldEl.focus();
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name  = form.querySelector('#name').value.trim();
-    const email = form.querySelector('#email').value.trim();
-    const phone = form.querySelector('#phone').value.trim();
+    const nameEl  = form.querySelector('#name');
+    const emailEl = form.querySelector('#email');
+    const phoneEl = form.querySelector('#phone');
+
+    const name  = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const phone = phoneEl.value.trim();
 
     if (!name) {
-      showStatus('Please fill in your name.', 'error');
+      showFieldError(nameEl, 'Please fill in your name.');
       return;
     }
     if (!email && !phone) {
-      showStatus('Please add an email or phone number so Daniel can reach you.', 'error');
+      showFieldError(emailEl, 'Add an email or phone — whichever\'s easiest.');
       return;
     }
 
