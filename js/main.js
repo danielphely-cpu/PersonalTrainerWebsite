@@ -199,18 +199,35 @@ if (form) {
     if (label) label.insertAdjacentElement('afterend', err);
     else group.prepend(err);
 
-    // Also clear when user starts typing
+    // Clear when user starts typing
     fieldEl.addEventListener('input', () => err.remove(), { once: true });
-
-    fieldEl.focus();
   }
+
+  // Blur validation — show error when leaving a required field empty
+  const nameEl  = form.querySelector('#name');
+  const emailEl = form.querySelector('#email');
+  const phoneEl = form.querySelector('#phone');
+
+  nameEl.addEventListener('blur', () => {
+    if (!nameEl.value.trim()) {
+      showFieldError(nameEl, 'Please fill in your name.');
+    }
+  });
+
+  emailEl.addEventListener('blur', () => {
+    if (!emailEl.value.trim() && !phoneEl.value.trim()) {
+      showFieldError(emailEl, 'Add an email or phone — whichever\'s easiest.');
+    }
+  });
+
+  phoneEl.addEventListener('blur', () => {
+    if (!phoneEl.value.trim() && !emailEl.value.trim()) {
+      showFieldError(phoneEl, 'Add a phone or email — whichever\'s easiest.');
+    }
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const nameEl  = form.querySelector('#name');
-    const emailEl = form.querySelector('#email');
-    const phoneEl = form.querySelector('#phone');
 
     const name  = nameEl.value.trim();
     const email = emailEl.value.trim();
