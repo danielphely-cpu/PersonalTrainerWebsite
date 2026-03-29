@@ -143,7 +143,6 @@ toggle.addEventListener('click', () => {
   const isOpen = toggle.classList.toggle('open');
   navLinks.classList.toggle('open', isOpen);
   toggle.setAttribute('aria-expanded', isOpen);
-  toggle.textContent = isOpen ? 'Close' : 'Menu';
   document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
