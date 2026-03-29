@@ -150,7 +150,10 @@ navLinks.querySelectorAll('a').forEach(link => {
     toggle.classList.remove('open');
     navLinks.classList.remove('open');
     toggle.setAttribute('aria-expanded', false);
-    document.body.style.overflow = '';
+    // Only unlock scroll if the modal isn't open
+    if (!modalOverlay.classList.contains('open')) {
+      document.body.style.overflow = '';
+    }
   });
 });
 
