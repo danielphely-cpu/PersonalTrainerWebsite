@@ -1022,6 +1022,40 @@ a {
   border: 1px solid rgba(224, 112, 112, 0.2);
 }
 
+.form__group--hidden {
+  display: none;
+}
+
+.contact-toggle {
+  display: flex;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.contact-toggle__btn {
+  flex: 1;
+  padding: 0.55rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.contact-toggle__btn.active {
+  background: var(--gold);
+  color: var(--bg);
+}
+
 .form__note {
   text-align: center;
   font-size: 0.75rem;

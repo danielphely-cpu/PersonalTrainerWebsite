@@ -208,15 +208,22 @@
           action="https://formspree.io/f/xaqlewoj"
           method="POST"
         >
-          <div class="form__row">
-            <div class="form__group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" placeholder="Your name" required />
+          <div class="form__group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form__group">
+            <label>How would you like to be contacted?</label>
+            <div class="contact-toggle" role="group">
+              <button type="button" class="contact-toggle__btn active" data-target="field-email">Email</button>
+              <button type="button" class="contact-toggle__btn" data-target="field-phone">Phone / WhatsApp</button>
             </div>
-            <div class="form__group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required />
-            </div>
+          </div>
+          <div class="form__group" id="field-email">
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form__group form__group--hidden" id="field-phone">
+            <input type="tel" id="phone" name="phone" placeholder="04xx xxx xxx" />
           </div>
           <div class="form__group">
             <label for="interest">I'm interested in</label>
