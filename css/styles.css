@@ -606,52 +606,6 @@ a {
   background-color: var(--gold);
 }
 
-/* ============================================
-   HOW IT WORKS
-   ============================================ */
-.how__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  grid-auto-rows: 1fr;
-}
-
-.how-step {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  padding: 2.5rem 2rem;
-  border: 1px solid var(--border);
-  background-color: var(--surface-2);
-  transition: border-color var(--transition);
-}
-
-.how-step:hover {
-  border-color: var(--gold);
-}
-
-.how-step__number {
-  font-family: var(--font-heading);
-  font-size: 3.5rem;
-  font-weight: 600;
-  color: var(--gold);
-  opacity: 0.25;
-  line-height: 1;
-}
-
-.how-step__title {
-  font-family: var(--font-heading);
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-.how-step__text {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.85;
-}
 
 /* ============================================
    SERVICES
@@ -1110,11 +1064,6 @@ a {
     margin-inline: auto;
   }
 
-  .how__grid {
-    grid-template-columns: 1fr;
-    max-width: 560px;
-    margin-inline: auto;
-  }
 
   .services__grid {
     grid-template-columns: 1fr;
@@ -1287,14 +1236,6 @@ a {
     gap: 0.5rem;
   }
 
-  /* How it works */
-  .how-step {
-    padding: 1.75rem 1.5rem;
-  }
-
-  .how-step__number {
-    font-size: 2.5rem;
-  }
 
   /* Services */
   .services__grid {
