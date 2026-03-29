@@ -49,21 +49,6 @@ onScroll();
 window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 
 
-/* ---------- SCROLL REVEAL ---------- */
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const delay = entry.target.dataset.delay;
-      if (delay) {
-        entry.target.style.transitionDelay = `${(+delay - 1) * 0.17 + 0.05}s`;
-      }
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
 /* ---------- 3D CARD TILT ---------- */
