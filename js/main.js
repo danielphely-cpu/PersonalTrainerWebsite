@@ -171,6 +171,7 @@ toggle.addEventListener('click', () => {
   const isOpen = toggle.classList.toggle('open');
   navLinks.classList.toggle('open', isOpen);
   toggle.setAttribute('aria-expanded', isOpen);
+  toggle.textContent = isOpen ? 'Close' : 'Menu';
   document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
@@ -179,7 +180,7 @@ navLinks.querySelectorAll('a').forEach(link => {
     toggle.classList.remove('open');
     navLinks.classList.remove('open');
     toggle.setAttribute('aria-expanded', false);
-    // Only unlock scroll if the modal isn't open
+    toggle.textContent = 'Menu';
     if (!modalOverlay.classList.contains('open')) {
       document.body.style.overflow = '';
     }
