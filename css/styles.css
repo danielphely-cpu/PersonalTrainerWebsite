@@ -995,47 +995,77 @@ a {
 }
 
 .form__group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form__group label {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  position: relative;
+  margin-bottom: 0.25rem;
 }
 
 .form__group input,
 .form__group select,
 .form__group textarea {
   background-color: var(--surface);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   color: var(--text);
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 300;
   padding: 0.85rem 1rem;
   outline: none;
-  transition: border-color var(--transition);
+  border-radius: 12px;
+  width: 100%;
+  transition: border-color 0.25s ease;
   -webkit-appearance: none;
   appearance: none;
-  border-radius: 0;
-  width: 100%;
-}
-
-.form__group input::placeholder,
-.form__group textarea::placeholder {
-  color: var(--text-muted);
-  opacity: 0.6;
 }
 
 .form__group input:focus,
 .form__group select:focus,
 .form__group textarea:focus {
   border-color: var(--gold);
+}
+
+/* Floating label */
+.form__group label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: all 0.25s ease;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 300;
+  background: transparent;
+}
+
+/* Float on focus or when filled */
+.form__group :is(input:focus, input:not(:placeholder-shown)) ~ label,
+.form__group :is(textarea:focus, textarea:not(:placeholder-shown)) ~ label,
+.form__group select ~ label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 0.35rem;
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.form__group :is(input:focus, textarea:focus, select:focus) ~ label {
+  color: var(--gold);
+}
+
+/* Textarea — label starts at top, not center */
+.form__group textarea ~ label {
+  top: 1.05rem;
+  transform: none;
+}
+
+.form__group textarea:not(:placeholder-shown) ~ label,
+.form__group textarea:focus ~ label {
+  top: 0;
+  transform: translateY(-50%);
 }
 
 .form__group select {

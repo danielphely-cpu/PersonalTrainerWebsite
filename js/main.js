@@ -253,16 +253,8 @@ if (form) {
   });
 
   function showSuccess() {
-    // Replace the entire form with the success alert
-    const alert = document.createElement('div');
-    alert.className = 'form-success';
-    alert.setAttribute('role', 'alert');
-    alert.innerHTML = `
-      <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
-      </svg>
-      <p>Message sent — Daniel will be in touch within 24 hours.</p>`;
-    form.replaceWith(alert);
+    closeModal();
+    window.location.href = 'thankyou.html';
   }
 
   function showStatus(message, type) {
