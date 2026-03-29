@@ -133,34 +133,6 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
 });
 
-/* ---------- CONTACT METHOD TOGGLE ---------- */
-const contactToggleBtns = document.querySelectorAll('.contact-toggle__btn');
-
-contactToggleBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    contactToggleBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const emailField = document.getElementById('field-email');
-    const phoneField = document.getElementById('field-phone');
-    const emailInput = document.getElementById('email');
-    const phoneInput = document.getElementById('phone');
-
-    if (btn.dataset.target === 'field-email') {
-      emailField.classList.remove('form__group--hidden');
-      phoneField.classList.add('form__group--hidden');
-      emailInput.required = true;
-      phoneInput.required = false;
-      emailInput.focus();
-    } else {
-      phoneField.classList.remove('form__group--hidden');
-      emailField.classList.add('form__group--hidden');
-      phoneInput.required = true;
-      emailInput.required = false;
-      phoneInput.focus();
-    }
-  });
-});
 
 
 /* ---------- NAV: MOBILE TOGGLE ---------- */
