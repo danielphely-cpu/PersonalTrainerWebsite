@@ -665,14 +665,104 @@ a {
   border-color: var(--gold);
 }
 
+/* ---- Tier indicators ---- */
+.service-card__tier {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: -0.25rem;
+}
+
+.service-card__tier span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+/* ---- Foundation — clean, honest, accessible ---- */
+.service-card--foundation {
+  background-color: #131315;
+  border-color: #32323A;
+}
+
+.service-card--foundation::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #55555F 40%, #55555F 60%, transparent);
+}
+
+.service-card--foundation .service-card__tier span {
+  background-color: #4A4A55;
+}
+
+.service-card--foundation .service-card__label {
+  color: var(--text-muted);
+}
+
+/* ---- Performance (featured) — warm, inviting, proven ---- */
 .service-card--featured {
   border-color: var(--gold);
   background-color: #1E1A10;
   transform: translateY(-8px);
+  box-shadow: 0 8px 48px rgba(201, 168, 76, 0.14), 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.service-card--featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--gold) 60%, transparent);
+}
+
+.service-card--featured .service-card__tier span {
+  background-color: var(--gold);
 }
 
 .service-card--featured:hover {
   transform: translateY(-12px);
+}
+
+/* ---- Elite — exclusive, aspirational, the peak ---- */
+.service-card--elite {
+  background:
+    linear-gradient(#0D0A07, #0D0A07) padding-box,
+    linear-gradient(150deg, #7A6028 0%, #C9A84C 30%, #E2C97E 50%, #C9A84C 70%, #7A6028 100%) border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 8px 56px rgba(201, 168, 76, 0.13);
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.service-card--elite::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C9A84C 25%, #E2C97E 50%, #C9A84C 75%, transparent);
+}
+
+.service-card--elite:hover,
+.service-card--elite {
+  border-color: transparent;
+}
+
+.service-card--elite:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 64px rgba(201, 168, 76, 0.22);
+}
+
+.service-card--elite .service-card__tier span {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+
+.service-card--elite .service-card__label {
+  background: linear-gradient(120deg, var(--gold) 20%, var(--gold-light) 55%, #FFF5DC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .service-card__badge {
