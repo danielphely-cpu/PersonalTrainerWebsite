@@ -1023,6 +1023,15 @@ a {
   border-color: var(--gold);
 }
 
+/* Override browser autofill white/blue background */
+.form__group input:-webkit-autofill,
+.form__group input:-webkit-autofill:focus,
+.form__group input:-webkit-autofill:hover {
+  -webkit-box-shadow: 0 0 0 1000px #1A1A1A inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+}
+
 /* Floating label */
 .form__group label {
   position: absolute;

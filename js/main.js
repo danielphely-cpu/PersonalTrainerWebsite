@@ -183,28 +183,9 @@ if (form) {
     fieldEl.addEventListener('input', () => err.remove(), { once: true });
   }
 
-  // Blur validation — show error when leaving a required field empty
   const nameEl  = form.querySelector('#name');
   const emailEl = form.querySelector('#email');
   const phoneEl = form.querySelector('#phone');
-
-  nameEl.addEventListener('blur', () => {
-    if (!nameEl.value.trim()) {
-      showFieldError(nameEl, 'Please fill in your name.');
-    }
-  });
-
-  emailEl.addEventListener('blur', () => {
-    if (!emailEl.value.trim() && !phoneEl.value.trim()) {
-      showFieldError(emailEl, 'Add an email or phone — whichever\'s easiest.');
-    }
-  });
-
-  phoneEl.addEventListener('blur', () => {
-    if (!phoneEl.value.trim() && !emailEl.value.trim()) {
-      showFieldError(phoneEl, 'Add a phone or email — whichever\'s easiest.');
-    }
-  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
