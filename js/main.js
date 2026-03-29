@@ -2,54 +2,100 @@
    DPP FITNESS — main.js
    ============================================ */
 
-/* ---------- SCROLL REVEAL ---------- */
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const delay = entry.target.dataset.delay;
-      if (delay) {
-        entry.target.style.transitionDelay = `${delay * 0.15}s`;
-      }
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-
 /* ---------- SCROLL TO TOP ON LOAD ---------- */
-window.addEventListener('beforeunload', () => {
-  window.scrollTo(0, 0);
-});
-
 history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
-
 
 /* ---------- FOOTER YEAR ---------- */
 const yearEl = document.getElementById('footer-year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 
+/* ---------- SCROLL PROGRESS BAR ---------- */
+const progressBar = document.getElementById('scroll-progress');
+
+function updateProgress() {
+  if (!progressBar) return;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}
+
+
+/* ---------- HERO PARALLAX ---------- */
+const hero = document.querySelector('.hero');
+
+function updateParallax() {
+  if (!hero) return;
+  const scrolled = window.scrollY;
+  if (scrolled < window.innerHeight * 1.2) {
+    hero.style.backgroundPositionY = `calc(50% + ${scrolled * 0.3}px)`;
+  }
+}
+
+
 /* ---------- NAV: SCROLL EFFECT ---------- */
 const header = document.querySelector('.site-header');
 
 function onScroll() {
-  if (window.scrollY > 40) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
-  }
+  header.classList.toggle('scrolled', window.scrollY > 40);
+  updateProgress();
+  updateParallax();
 }
 
 window.addEventListener('scroll', onScroll, { passive: true });
-onScroll(); // run once on load
+onScroll();
+
+window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+
+
+/* ---------- SCROLL REVEAL ---------- */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const delay = entry.target.dataset.delay;
+      if (delay) {
+        entry.target.style.transitionDelay = `${(+delay - 1) * 0.17 + 0.05}s`;
+      }
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+
+/* ---------- 3D CARD TILT ---------- */
+const TILT_MAX   = 7;   // max degrees
+const TILT_SPEED = 0.5; // multiplier for smoothness feel
+
+document.querySelectorAll('.service-card').forEach(card => {
+  const isFeatured = card.classList.contains('service-card--featured');
+  // Base vertical offset matches CSS (featured is raised by 10px in CSS)
+  const baseY = isFeatured ? -10 : 0;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 2; // -1 to 1
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 2; // -1 to 1
+
+    const rotateX = -(y * TILT_MAX * TILT_SPEED);
+    const rotateY =   x * TILT_MAX * TILT_SPEED;
+
+    card.style.transform =
+      `perspective(1000px) translateY(${baseY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    // Clear inline transform — CSS takes back over smoothly
+    card.style.transform = '';
+  });
+});
 
 
 /* ---------- NAV: MOBILE TOGGLE ---------- */
-const toggle = document.querySelector('.nav__toggle');
+const toggle   = document.querySelector('.nav__toggle');
 const navLinks = document.querySelector('.nav__links');
 
 toggle.addEventListener('click', () => {
@@ -59,7 +105,6 @@ toggle.addEventListener('click', () => {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
-// Close menu when a nav link is clicked
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     toggle.classList.remove('open');
@@ -74,10 +119,9 @@ navLinks.querySelectorAll('a').forEach(link => {
 const form = document.querySelector('.contact__form');
 
 if (form) {
-  const submitBtn = form.querySelector('button[type="submit"]');
+  const submitBtn      = form.querySelector('button[type="submit"]');
   const originalBtnText = submitBtn.textContent;
 
-  // Inject a status message element below the button
   const statusMsg = document.createElement('p');
   statusMsg.className = 'form__status';
   statusMsg.setAttribute('role', 'alert');
@@ -86,8 +130,7 @@ if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Basic client-side validation
-    const name = form.querySelector('#name').value.trim();
+    const name  = form.querySelector('#name').value.trim();
     const email = form.querySelector('#email').value.trim();
 
     if (!name || !email) {
@@ -95,8 +138,7 @@ if (form) {
       return;
     }
 
-    // Disable button + show loading state
-    submitBtn.disabled = true;
+    submitBtn.disabled    = true;
     submitBtn.textContent = 'Sending…';
 
     try {
@@ -112,7 +154,7 @@ if (form) {
         showStatus('Thanks — Daniel will be in touch within 24 hours.', 'success');
       } else {
         const data = await response.json();
-        const msg = data?.errors?.map(e => e.message).join(', ') || 'Something went wrong. Please try again.';
+        const msg  = data?.errors?.map(e => e.message).join(', ') || 'Something went wrong. Please try again.';
         showStatus(msg, 'error');
         resetBtn();
       }
@@ -124,11 +166,11 @@ if (form) {
 
   function showStatus(message, type) {
     statusMsg.textContent = message;
-    statusMsg.className = `form__status form__status--${type}`;
+    statusMsg.className   = `form__status form__status--${type}`;
   }
 
   function resetBtn() {
-    submitBtn.disabled = false;
+    submitBtn.disabled    = false;
     submitBtn.textContent = originalBtnText;
   }
 }
