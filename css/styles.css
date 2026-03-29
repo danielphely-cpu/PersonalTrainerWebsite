@@ -571,30 +571,31 @@ a {
    SECTION DIVIDER
    ============================================ */
 .section-divider {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
-  padding: 0 2rem;
+  justify-content: center;
+  padding: 0.5rem 0;
   color: var(--gold);
-  opacity: 0.45;
-  box-sizing: border-box;
 }
 
-.section-divider span {
-  display: block;
-  flex: 1 1 0%;
+.section-divider::before {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
   height: 1px;
-  min-width: 0;
-  background: linear-gradient(90deg, transparent, var(--gold));
-}
-
-.section-divider span:last-child {
-  background: linear-gradient(270deg, transparent, var(--gold));
+  background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.5) 20%, rgba(201,168,76,0.5) 80%, transparent 100%);
 }
 
 .section-divider svg {
-  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+  padding: 0 0.75rem;
+  background: var(--bg);
+  opacity: 0.6;
 }
 
 /* ============================================
