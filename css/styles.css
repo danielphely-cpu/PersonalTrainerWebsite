@@ -1043,7 +1043,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 4rem 2rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -1058,14 +1058,15 @@ a {
 .modal {
   background-color: var(--surface);
   border: 1px solid var(--border);
+  border-radius: 16px;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04);
   width: 100%;
-  max-width: 480px;
-  max-height: min(82vh, 680px);
+  max-width: 460px;
+  max-height: 70vh;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: 2.75rem 2.25rem 2.25rem;
+  padding: 2.5rem 2.25rem 2.25rem;
   position: relative;
   opacity: 0;
   transform: scale(0.92) translateY(28px);
