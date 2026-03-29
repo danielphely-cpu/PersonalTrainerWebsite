@@ -222,15 +222,31 @@ a {
   right: 0;
   z-index: 100;
   background-color: transparent;
-  transition: background var(--transition), border-color var(--transition);
+  transition: border-color var(--transition);
   border-bottom: 1px solid transparent;
 }
 
+/* Blur lives on ::before so the header itself never gets backdrop-filter.
+   backdrop-filter on a parent makes position:fixed children anchor to it
+   instead of the viewport — which breaks the full-screen nav overlay. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: transparent;
+  transition: background var(--transition), backdrop-filter var(--transition);
+  pointer-events: none;
+}
+
 .site-header.scrolled {
-  background-color: rgba(13, 13, 13, 0.95);
+  border-bottom-color: var(--border);
+}
+
+.site-header.scrolled::before {
+  background: rgba(13, 13, 13, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom-color: var(--border);
 }
 
 .nav {
