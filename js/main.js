@@ -136,11 +136,12 @@ document.addEventListener('keydown', (e) => {
 
 
 /* ---------- NAV: MOBILE TOGGLE ---------- */
-const toggle   = document.querySelector('.nav__toggle');
-const navLinks = document.querySelector('.nav__links');
+const toggle      = document.querySelector('.nav__toggle');
+const navCheckbox = document.getElementById('nav-checkbox');
+const navLinks    = document.querySelector('.nav__links');
 
-toggle.addEventListener('click', () => {
-  const isOpen = toggle.classList.toggle('open');
+navCheckbox.addEventListener('change', () => {
+  const isOpen = navCheckbox.checked;
   navLinks.classList.toggle('open', isOpen);
   toggle.setAttribute('aria-expanded', isOpen);
   document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -148,10 +149,9 @@ toggle.addEventListener('click', () => {
 
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
-    toggle.classList.remove('open');
+    navCheckbox.checked = false;
     navLinks.classList.remove('open');
     toggle.setAttribute('aria-expanded', false);
-    toggle.textContent = 'Menu';
     if (!modalOverlay.classList.contains('open')) {
       document.body.style.overflow = '';
     }
