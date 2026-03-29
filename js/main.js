@@ -151,11 +151,6 @@ if (form) {
   const submitBtn      = form.querySelector('button[type="submit"]');
   const originalBtnText = submitBtn.textContent;
 
-  const statusMsg = document.createElement('p');
-  statusMsg.className = 'form__status';
-  statusMsg.setAttribute('role', 'alert');
-  submitBtn.insertAdjacentElement('afterend', statusMsg);
-
   function showFieldError(fieldEl, message) {
     // Remove any existing error on this field's group
     const group = fieldEl.closest('.form__group') || fieldEl.parentElement;
@@ -227,43 +222,15 @@ if (form) {
       return;
     }
 
-    submitBtn.disabled    = true;
-    submitBtn.textContent = 'Sending…';
+    // Fire and forget — keepalive keeps the request alive through navigation
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' },
+      keepalive: true,
+    });
 
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' },
-      });
-
-      if (response.ok) {
-        form.reset();
-        showSuccess();
-      } else {
-        const data = await response.json();
-        const msg  = data?.errors?.map(e => e.message).join(', ') || 'Something went wrong. Please try again.';
-        showStatus(msg, 'error');
-        resetBtn();
-      }
-    } catch {
-      showStatus('Could not send your message. Please check your connection and try again.', 'error');
-      resetBtn();
-    }
+    window.location.href = 'thankyou.html';
   });
 
-  function showSuccess() {
-    closeModal();
-    window.location.href = 'thankyou.html';
-  }
-
-  function showStatus(message, type) {
-    statusMsg.textContent = message;
-    statusMsg.className   = `form__status form__status--${type}`;
-  }
-
-  function resetBtn() {
-    submitBtn.disabled    = false;
-    submitBtn.textContent = originalBtnText;
-  }
 }
