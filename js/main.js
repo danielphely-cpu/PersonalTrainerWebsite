@@ -94,6 +94,46 @@ document.querySelectorAll('.service-card').forEach(card => {
 });
 
 
+/* ---------- MODAL ---------- */
+const modalOverlay = document.getElementById('modal');
+const modalClose   = document.getElementById('modal-close');
+
+function openModal(pkg) {
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (pkg) {
+    const select = modalOverlay.querySelector('#interest');
+    if (select) select.value = pkg;
+  }
+  setTimeout(() => {
+    const first = modalOverlay.querySelector('input, select, textarea');
+    if (first) first.focus();
+  }, 80);
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.open-modal').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal(btn.dataset.package || '');
+  });
+});
+
+modalClose.addEventListener('click', closeModal);
+
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
+});
+
+
 /* ---------- NAV: MOBILE TOGGLE ---------- */
 const toggle   = document.querySelector('.nav__toggle');
 const navLinks = document.querySelector('.nav__links');
