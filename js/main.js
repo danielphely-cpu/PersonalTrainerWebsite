@@ -176,9 +176,14 @@ if (form) {
 
     const name  = form.querySelector('#name').value.trim();
     const email = form.querySelector('#email').value.trim();
+    const phone = form.querySelector('#phone').value.trim();
 
-    if (!name || !email) {
-      showStatus('Please fill in your name and email.', 'error');
+    if (!name) {
+      showStatus('Please fill in your name.', 'error');
+      return;
+    }
+    if (!email && !phone) {
+      showStatus('Please add an email or phone number so Daniel can reach you.', 'error');
       return;
     }
 

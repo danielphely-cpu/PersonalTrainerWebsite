@@ -1024,6 +1024,26 @@ a {
 }
 
 
+.form__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.form__divider::before,
+.form__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
 .form__note {
   text-align: center;
   font-size: 0.75rem;
