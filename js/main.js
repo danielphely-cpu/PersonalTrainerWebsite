@@ -17,8 +17,8 @@ const progressBar = document.getElementById('scroll-progress');
 function updateProgress() {
   if (!progressBar) return;
   const max = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-  progressBar.style.width = pct + '%';
+  const ratio = max > 0 ? window.scrollY / max : 0;
+  progressBar.style.transform = `scaleX(${ratio})`;
 }
 
 
